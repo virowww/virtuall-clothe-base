@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
         makeCurrentFragmentHome(homeFragment)
 
-        setView
     }
 
     private fun makeCurrentFragmentHome(fragment: Fragment) =
