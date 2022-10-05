@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import br.com.virtuallclothe.fragments.HomeFragment
 import br.com.virtuallclothe.fragments.ShoppingCartFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,14 +15,25 @@ class MainActivity : AppCompatActivity() {
         val shoppingCartFragment = ShoppingCartFragment()
         val homeFragment = HomeFragment()
 
-        makeCurrentFragmentHome(homeFragment)
+        makeCurrentFragment(homeFragment)
 
+        val b = findViewById<BottomNavigationView>(R.id.top_navigation)
+
+        b.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.app_title -> makeCurrentFragment(homeFragment)
+                R.id.shopping_cart -> makeCurrentFragment(shoppingCartFragment)
+            }
+            true
+        }
     }
 
-    private fun makeCurrentFragmentHome(fragment: Fragment) =
+    private fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fl_wrapper, fragment)
             commit()
         }
+
+
 }
 

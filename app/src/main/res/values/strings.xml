@@ -2,4 +2,9 @@
     <string name="app_name">VirtuallClothe</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_hint">O que está procurando?</string>
+    <string name="menu">Menu</string>
+    <string name="app_title">Virtuall Clothe</string>
+    <string name="shopping_cart">Carrinho</string>
+    <string name="search_buttom">Search Buttom</string>
 </resources>

@@ -5,14 +5,15 @@
     <item
         android:id="@+id/baseline_menu"
         android:icon="@drawable/ic_baseline_menu_24"
-        android:title="Menu"/>
+        android:title="@string/menu"/>
 
     <item
         android:id="@+id/app_title"
-        android:title="Virtuall Clothe"/>
+        android:icon="@drawable/ic_soccer"
+        android:title="@string/app_title"/>
     <item
         android:id="@+id/shopping_cart"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
-        android:title="Carrinho"/>
+        android:title="@string/shopping_cart"/>
 
 </menu>
