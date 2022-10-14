@@ -3,15 +3,14 @@ package br.com.virtuallclothe.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.math.BigDecimal
 
 @Entity(tableName = "pedido")
-class Pedido {
+class Pedido(id: Int, total: Double) {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int = 0
+    var id: Int = id
 
     @ColumnInfo(name = "nome")
-    var total: BigDecimal = BigDecimal.ZERO
+    var total: Double = total
 }

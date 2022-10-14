@@ -9,11 +9,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import br.com.fiap.roomprof.utils.toBitmap
+import br.com.virtuallclothe.utils.toBitmap
 import br.com.virtuallclothe.R
 import br.com.virtuallclothe.models.Produto
 
-class ProductListAdapter(productList: ArrayList<Produto>, private var ctx: Context):
+class ProductListAdapter(productList: List<Produto>, private var ctx: Context):
     RecyclerView.Adapter<ProductListAdapter.ProdutoViewHolder>() {
 
     internal var productList: List<Produto> = ArrayList()
@@ -30,7 +30,7 @@ class ProductListAdapter(productList: ArrayList<Produto>, private var ctx: Conte
         val product = productList[position]
 
         holder.name.text = product.nome
-        holder.price.text = product.valor.toPlainString()
+        holder.price.text = product.valor.toString()
         holder.image.setImageBitmap(product.imagem!!.toBitmap())
 
         if(position % 2 == 0) holder.linearLayoutItem.setBackgroundColor(Color.GRAY)

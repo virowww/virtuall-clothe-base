@@ -1,12 +1,17 @@
 package br.com.virtuallclothe.repository
 
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import br.com.virtuallclothe.models.Pedido
+import br.com.virtuallclothe.models.PedidoItem
+import br.com.virtuallclothe.models.Produto
 import br.com.virtuallclothe.repository.dao.PedidoDAO
 import br.com.virtuallclothe.repository.dao.PedidoItemDAO
 import br.com.virtuallclothe.repository.dao.ProdutoDAO
 
+@Database(entities = [Pedido::class, Produto::class, PedidoItem::class ], version = 1)
 abstract class DataBase : RoomDatabase(){
 
     abstract fun produtoDao(): ProdutoDAO

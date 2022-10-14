@@ -2,21 +2,20 @@ package br.com.virtuallclothe.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import java.math.BigDecimal
 
-@Entity(tableName = "pedido_item")
+@Entity(tableName = "pedido_item", foreignKeys = [ForeignKey(entity = Pedido::class, parentColumns = arrayOf("id"), childColumns = arrayOf("id_pedido"), onDelete = ForeignKey.CASCADE),
+                                                  ForeignKey(entity = Produto::class, parentColumns = arrayOf("id"), childColumns = arrayOf("id_produto"), onDelete = ForeignKey.CASCADE)])
 class PedidoItem {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0
 
-    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_pedido")
     var idPedido: Int = 0
 
-    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_produto")
     var idProduto: Int = 0
 
@@ -24,6 +23,6 @@ class PedidoItem {
     var qtd: Int = 0
 
     @ColumnInfo(name = "sub_total")
-    var subTotal: BigDecimal = BigDecimal.ZERO
+    var subTotal: Double = 0.00
 
 }

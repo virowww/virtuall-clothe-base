@@ -1,11 +1,9 @@
 package br.com.virtuallclothe.repository.dao
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import br.com.virtuallclothe.models.Produto
 
+@Dao
 interface ProdutoDAO {
 
     @Insert

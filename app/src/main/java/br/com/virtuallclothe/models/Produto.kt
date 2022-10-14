@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.math.BigDecimal
 
 @Entity(tableName = "produto")
-class Produto(id: Int, nome: String, valor: BigDecimal, tamanho: String, imagem: ByteArray) {
+class Produto(id: Int, nome: String, valor: Double, tamanho: String, imagem: ByteArray) {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -16,7 +16,7 @@ class Produto(id: Int, nome: String, valor: BigDecimal, tamanho: String, imagem:
     var nome: String = nome
 
     @ColumnInfo(name = "valor")
-    var valor: BigDecimal = valor
+    var valor: Double = valor
 
     @ColumnInfo(name = "tamanho")
     var tamanho: String = tamanho
