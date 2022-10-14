@@ -9,7 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
+            android:id="@+id/linear_layout"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:orientation="horizontal"
@@ -25,7 +27,7 @@
                 android:hint="@string/search_hint"
                 android:inputType="textFilter"
                 android:textAlignment="center"
-                android:autofillHints="name"/>
+                android:autofillHints="name" />
 
             <ImageButton
                 android:id="@+id/searchButton"
@@ -34,9 +36,22 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:src="@drawable/search"
-                android:contentDescription="@string/search_buttom"/>
+                android:contentDescription="@string/search_buttom" />
 
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/product_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linear_layout"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp" />
     </RelativeLayout>
 
 </FrameLayout>
