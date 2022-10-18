@@ -6,5 +6,7 @@
     <string name="menu">Menu</string>
     <string name="app_title">Virtuall Clothe</string>
     <string name="shopping_cart">Carrinho</string>
-    <string name="search_buttom">Search Buttom</string>
+    <string name="continuar_comprando_txt">Continuar Comprando</string>
+    <string name="comprar_txt">Comprar</string>
+    <string name="search_buttom">Pesquisar</string>
 </resources>
