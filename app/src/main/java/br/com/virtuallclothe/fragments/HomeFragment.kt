@@ -1,15 +1,18 @@
 package br.com.virtuallclothe.fragments
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.virtuallclothe.R
 import br.com.virtuallclothe.adapter.ProductListAdapter
 import br.com.virtuallclothe.databinding.FragmentHomeBinding
 import br.com.virtuallclothe.models.Produto
 import br.com.virtuallclothe.repository.ProdutoRepository
+import br.com.virtuallclothe.utils.toByteArray
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,8 +49,7 @@ class HomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,8 +58,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun iniciarRecyclerView() {
-        // TODO remove o comentário pra testar
-//        produtoAdapter = ProductListAdapter(mockProducts(), requireContext())
         produtoAdapter = ProductListAdapter(getProducts(), requireContext())
         linearLayoutManager = LinearLayoutManager(requireContext())
 
@@ -65,45 +65,33 @@ class HomeFragment : Fragment() {
         binding.productList.adapter = produtoAdapter
     }
 
-
-    // TODO remove o comentário pra testar
-//    fun mockProducts(): List<Produto> {
-//        val icon1 = getResourceByteArray(R.drawable.camiseta_preta)
-//        val icon2 = getResourceByteArray(R.drawable.camiseta_branca)
-//        val icon3 = getResourceByteArray(R.drawable.camiseta_vermelha)
-//        val icon4 = getResourceByteArray(R.drawable.camiseta_roxo)
-//        val icon5 = getResourceByteArray(R.drawable.camiseta_verde)
-//
-//        return listOf(
-//            Produto(1, "Camiseta Preta", 49.99, "", icon1),
-//            Produto(2, "Camiseta Branca", 35.99, "", icon2),
-//            Produto(3, "Camiseta Vermelha", 29.99, "", icon3),
-//            Produto(4, "Camiseta Roxa", 35.99, "", icon4),
-//            Produto(5, "Camiseta Verde", 29.99, "", icon5)
-//        )
-//    }
-
-    // TODO remove o comentário pra testar
-//    fun getResourceByteArray(image: Int) = BitmapFactory.decodeResource(resources, image).toByteArray()
-
-    fun getProducts(): List<Produto>{
+    private fun getProducts(): List<Produto>{
         val repo = ProdutoRepository (requireContext())
         val list: List<Produto> = repo.listarProdutos()
-        return list
-//        var icon = BitmapFactory.decodeResource(resources, R.drawable.camiseta_preta)
-//        repo.salvarProduto(Produto(1, "Camiseta Preta", 49.99, "", icon.toByteArray()))
-//
-//        icon = BitmapFactory.decodeResource(resources, R.drawable.camiseta_branca)
-//        repo.salvarProduto(Produto(2, "Camiseta Branca", 35.99, "", icon.toByteArray()))
-//
-//        icon = BitmapFactory.decodeResource(resources, R.drawable.camiseta_vermelha)
-//        repo.salvarProduto(Produto(3, "Camiseta Vermelha", 29.99, "", icon.toByteArray()))
-//
-//        icon = BitmapFactory.decodeResource(resources, R.drawable.camiseta_roxo)
-//        repo.salvarProduto(Produto(4, "Camiseta Roxa", 35.99, "", icon.toByteArray()))
-//
-//        icon = BitmapFactory.decodeResource(resources, R.drawable.camiseta_verde)
-//        repo.salvarProduto(Produto(5, "Camiseta Verde", 29.99, "", icon.toByteArray()))
+        return list.ifEmpty {
+            saveProducts()
+        }
+    }
+
+    private fun saveProducts(): List<Produto>{
+        val repo = ProdutoRepository (requireContext())
+
+        val icon = BitmapFactory.decodeResource(resources, R.drawable.camiseta_preta)
+        repo.salvarProduto(Produto(1, "Camiseta Preta", 49.99, "", icon.toByteArray()))
+
+        val icon2 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_branca)
+        repo.salvarProduto(Produto(2, "Camiseta Branca", 35.99, "", icon2.toByteArray()))
+
+        val icon3 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_vermelha)
+        repo.salvarProduto(Produto(3, "Camiseta Vermelha", 29.99, "", icon3.toByteArray()))
+
+        val icon4 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_roxo)
+        repo.salvarProduto(Produto(4, "Camiseta Roxa", 35.99, "", icon4.toByteArray()))
+
+        val icon5 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_verde)
+        repo.salvarProduto(Produto(5, "Camiseta Verde", 29.99, "", icon5.toByteArray()))
+
+        return repo.listarProdutos()
     }
 
     override fun onDestroyView() {

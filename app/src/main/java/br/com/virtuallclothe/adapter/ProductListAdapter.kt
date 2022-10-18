@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.com.virtuallclothe.utils.toBitmap
 import br.com.virtuallclothe.R
@@ -33,8 +34,13 @@ class ProductListAdapter(productList: List<Produto>, private var ctx: Context):
         holder.price.text = product.valor.toString()
         holder.image.setImageBitmap(product.imagem!!.toBitmap())
 
-        if(position % 2 == 0) holder.linearLayoutItem.setBackgroundColor(Color.GRAY)
-        else holder.linearLayoutItem.setBackgroundColor(Color.WHITE)
+        if(position % 2 == 0){
+            holder.linearLayoutItem.setBackgroundColor(ContextCompat.getColor(ctx ,R.color.grey))
+            holder.price.setTextColor(Color.WHITE)
+            holder.name.setTextColor(Color.WHITE)
+        } else {
+            holder.linearLayoutItem.setBackgroundColor(Color.WHITE)
+        }
     }
 
     override fun getItemCount(): Int {
