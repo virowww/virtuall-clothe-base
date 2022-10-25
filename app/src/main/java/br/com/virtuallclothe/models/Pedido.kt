@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "pedido")
-class Pedido(id: Int, total: Double) {
+class Pedido(id: Int, total: Double) : java.io.Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
