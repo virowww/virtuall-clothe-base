@@ -7,6 +7,7 @@
     <string name="app_title">Virtuall Clothe</string>
     <string name="shopping_cart">Carrinho</string>
     <string name="continuar_comprando_txt">Continuar Comprando</string>
+    <string name="adicionar_produto_txt">Adicionar Produto</string>
     <string name="comprar_txt">Comprar</string>
     <string name="search_buttom">Pesquisar</string>
 </resources>

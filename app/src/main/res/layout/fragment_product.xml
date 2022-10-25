@@ -2,85 +2,79 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.ProductFragment">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/buttons_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="190dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/buttons_layout"
+            <Button
+                android:id="@+id/continuar_comprando"
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="0dp"
-                android:orientation="vertical">
+                android:layout_height="95dp"
+                android:backgroundTint="@color/grey"
+                android:fontFamily="@font/hind_siliguri_medium"
+                android:text="@string/adicionar_produto_txt"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
 
-                <Button
-                    android:id="@+id/continuar_comprando"
-                    android:layout_width="match_parent"
-                    android:layout_height="95dp"
-                    android:backgroundTint="@color/grey"
-                    android:fontFamily="@font/hind_siliguri_medium"
-                    android:text="@string/continuar_comprando_txt"
-                    android:textAllCaps="false"
-                    android:textSize="20sp" />
-
-                <Button
-                    android:id="@+id/comprar"
-                    android:layout_width="match_parent"
-                    android:layout_height="95dp"
-                    android:backgroundTint="@color/grey"
-                    android:fontFamily="@font/hind_siliguri_medium"
-                    android:text="@string/comprar_txt"
-                    android:textAllCaps="false"
-                    android:textSize="22sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/imageView"
+            <Button
+                android:id="@+id/comprar"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="15dp"
-                android:contentDescription="@string/app_name" />
+                android:layout_height="95dp"
+                android:backgroundTint="@color/grey"
+                android:fontFamily="@font/hind_siliguri_medium"
+                android:text="@string/comprar_txt"
+                android:textAllCaps="false"
+                android:textSize="22sp" />
+        </LinearLayout>
 
-            <LinearLayout
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@string/app_name" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/buttons_layout"
+            android:layout_below="@+id/imageView"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/buttons_layout"
-                android:layout_below="@+id/imageView"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="0dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/hind_siliguri_medium"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="30sp" />
 
-                <TextView
-                    android:id="@+id/text_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:fontFamily="@font/hind_siliguri_medium"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textSize="30sp" />
+            <TextView
+                android:id="@+id/text_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/hind_siliguri_medium"
+                android:textAlignment="center"
+                android:textSize="35sp" />
 
-                <TextView
-                    android:id="@+id/text_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/hind_siliguri_medium"
-                    android:textAlignment="center"
-                    android:textSize="35sp" />
+        </LinearLayout>
 
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </FrameLayout>
+    </RelativeLayout>
 
 
 </layout>
