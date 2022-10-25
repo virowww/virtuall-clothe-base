@@ -5,9 +5,22 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "pedido_item", foreignKeys = [ForeignKey(entity = Pedido::class, parentColumns = arrayOf("id"), childColumns = arrayOf("id_pedido"), onDelete = ForeignKey.CASCADE),
-                                                  ForeignKey(entity = Produto::class, parentColumns = arrayOf("id"), childColumns = arrayOf("id_produto"), onDelete = ForeignKey.CASCADE)])
-class PedidoItem {
+@Entity(
+    tableName = "pedido_item",
+    foreignKeys = [ForeignKey(
+        entity = Pedido::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("id_pedido"),
+        onDelete = ForeignKey.CASCADE
+    ),
+        ForeignKey(
+            entity = Produto::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("id_produto"),
+            onDelete = ForeignKey.CASCADE
+        )]
+)
+class PedidoItem : java.io.Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

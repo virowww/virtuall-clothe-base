@@ -9,10 +9,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import br.com.virtuallclothe.utils.toBitmap
 import br.com.virtuallclothe.R
+import br.com.virtuallclothe.fragments.ProductFragment
 import br.com.virtuallclothe.models.Produto
+import br.com.virtuallclothe.utils.toBitmap
+
 
 class ProductListAdapter(productList: List<Produto>, private var ctx: Context):
     RecyclerView.Adapter<ProductListAdapter.ProdutoViewHolder>() {
@@ -31,8 +34,13 @@ class ProductListAdapter(productList: List<Produto>, private var ctx: Context):
         val product = productList[position]
 
         holder.name.text = product.nome
-        holder.price.text = product.valor.toString()
+        holder.price.text = "R$ " + product.valor.toString()
         holder.image.setImageBitmap(product.imagem!!.toBitmap())
+        holder.linearLayoutItem.setOnClickListener {
+            (ctx as FragmentActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.fl_wrapper, ProductFragment(product))
+                .commit()
+        }
 
         if(position % 2 == 0){
             holder.linearLayoutItem.setBackgroundColor(ContextCompat.getColor(ctx ,R.color.grey))
