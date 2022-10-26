@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
         val shoppingCartFragment = ShoppingCartFragment()
         val homeFragment = HomeFragment()
-
         makeCurrentFragment(homeFragment)
 
         binding.topNavigation.setOnNavigationItemSelectedListener {
@@ -27,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
     }
 
     private fun makeCurrentFragment(fragment: Fragment) =

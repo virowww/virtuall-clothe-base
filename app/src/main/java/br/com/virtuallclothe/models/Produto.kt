@@ -24,4 +24,7 @@ class Produto(id: Int, nome: String, valor: Double, tamanho: String, imagem: Byt
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     var imagem: ByteArray? = imagem
 
+    @Transient
+    var qtd: Int = 0
+
 }

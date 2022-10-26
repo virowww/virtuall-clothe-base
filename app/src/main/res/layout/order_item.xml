@@ -10,7 +10,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/white"
-        android:src="@drawable/camiseta_preta"
         android:contentDescription="@string/app_name"/>
 
     <LinearLayout
@@ -26,7 +25,6 @@
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/hind_siliguri_medium"
             android:textAlignment="viewEnd"
-            android:text="Camiseta Preta"
             android:textSize="20sp" />
 
         <TextView
@@ -37,7 +35,6 @@
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/hind_siliguri_medium"
             android:textAlignment="viewEnd"
-            android:text="R$ 29.99"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -58,12 +55,11 @@
             android:contentDescription="@string/app_name"/>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/product_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/hind_siliguri_medium"
-            android:text="1"
             android:textAlignment="center"
             android:textSize="20sp" />
 

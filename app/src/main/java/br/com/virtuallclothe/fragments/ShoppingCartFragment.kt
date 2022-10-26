@@ -1,11 +1,14 @@
 package br.com.virtuallclothe.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.com.virtuallclothe.R
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.virtuallclothe.adapter.OrderItemListAdapter
+import br.com.virtuallclothe.databinding.FragmentShoppingCartBinding
+import br.com.virtuallclothe.models.Pedido
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +25,13 @@ class ShoppingCartFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var _binding: FragmentShoppingCartBinding? = null
+    private val binding get() = _binding!!
+
+    var orderItemAdapter: OrderItemListAdapter? = null
+    var linearLayoutManager: LinearLayoutManager? = null
+    lateinit var pedido: Pedido
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +45,22 @@ class ShoppingCartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shopping_cart, container, false)
+        _binding = FragmentShoppingCartBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+
+        orderItemAdapter = OrderItemListAdapter(pedido, requireContext())
+        linearLayoutManager = LinearLayoutManager(requireContext())
+
+        binding.orderItemList.layoutManager = linearLayoutManager
+        binding.orderItemList.adapter = orderItemAdapter
     }
 
     companion object {

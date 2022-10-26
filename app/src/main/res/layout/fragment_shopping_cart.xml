@@ -1,20 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.ShoppingCartFragment">
+    android:layout_height="match_parent">
 
-
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".fragments.ShoppingCartFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Shopping Cart Fragment" />
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_layaout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</FrameLayout>
+            <LinearLayout
+                android:id="@+id/linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/recycler_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:orientation="vertical">
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/order_item_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/options_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/order_info_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="71dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/grey"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/hind_siliguri_medium"
+                            android:text="@string/resumo_pedido"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:id="@+id/order_price_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/grey"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="216dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="5dp"
+                                android:fontFamily="@font/hind_siliguri_medium"
+                                android:text="@string/valor_total"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/order_price_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="5dp"
+                                android:fontFamily="@font/hind_siliguri_medium"
+                                android:text="R$ 23.99"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/continuar_comprando"
+                        android:layout_width="match_parent"
+                        android:layout_height="77dp"
+                        android:backgroundTint="@color/grey"
+                        android:fontFamily="@font/hind_siliguri_medium"
+                        android:text="@string/continuar_comprando_txt"
+                        android:textAllCaps="false"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/comprar"
+                        android:layout_width="match_parent"
+                        android:layout_height="77dp"
+                        android:backgroundTint="@color/grey"
+                        android:fontFamily="@font/hind_siliguri_medium"
+                        android:text="@string/comprar_txt"
+                        android:textAllCaps="false"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+</layout>

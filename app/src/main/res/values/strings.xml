@@ -10,4 +10,6 @@
     <string name="adicionar_produto_txt">Adicionar Produto</string>
     <string name="comprar_txt">Comprar</string>
     <string name="search_buttom">Pesquisar</string>
+    <string name="resumo_pedido">Resumo do Pedido</string>
+    <string name="valor_total">Valor Total:</string>
 </resources>

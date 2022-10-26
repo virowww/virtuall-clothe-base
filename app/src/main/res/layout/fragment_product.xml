@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/continuar_comprando"
+                android:id="@+id/adicionar_produto"
                 android:layout_width="match_parent"
                 android:layout_height="95dp"
                 android:backgroundTint="@color/grey"
