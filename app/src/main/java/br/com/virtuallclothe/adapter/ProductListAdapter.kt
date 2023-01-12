@@ -13,14 +13,16 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import br.com.virtuallclothe.R
 import br.com.virtuallclothe.fragments.ProductFragment
+import br.com.virtuallclothe.models.Pedido
 import br.com.virtuallclothe.models.Produto
 import br.com.virtuallclothe.utils.toBitmap
 
 
-class ProductListAdapter(productList: List<Produto>, private var ctx: Context):
+class ProductListAdapter(productList: List<Produto>, order: Pedido, private var ctx: Context):
     RecyclerView.Adapter<ProductListAdapter.ProdutoViewHolder>() {
 
     internal var productList: List<Produto> = ArrayList()
+    internal var instanceOrder: Pedido = order
     init {
         this.productList = productList
     }
@@ -38,7 +40,7 @@ class ProductListAdapter(productList: List<Produto>, private var ctx: Context):
         holder.image.setImageBitmap(product.imagem!!.toBitmap())
         holder.linearLayoutItem.setOnClickListener {
             (ctx as FragmentActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.fl_wrapper, ProductFragment(product))
+                .replace(R.id.fl_wrapper, ProductFragment(product, instanceOrder))
                 .commit()
         }
 

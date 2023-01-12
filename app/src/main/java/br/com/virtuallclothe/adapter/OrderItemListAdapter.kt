@@ -29,7 +29,7 @@ class OrderItemListAdapter(order: Pedido, private var ctx: Context) :
     }
 
     override fun onBindViewHolder(holder: PedidoViewHolder, position: Int) {
-        val orderItem = order.productList[position]
+        val orderItem = order.productList!![position]
 
         holder.name.text = orderItem.nome
         holder.price.text = "R$ " + orderItem.valor.toString()
@@ -46,7 +46,7 @@ class OrderItemListAdapter(order: Pedido, private var ctx: Context) :
     }
 
     override fun getItemCount(): Int {
-        return order.productList.size
+        return order.productList!!.size
     }
 
     class PedidoViewHolder(view: View) : RecyclerView.ViewHolder(view) {

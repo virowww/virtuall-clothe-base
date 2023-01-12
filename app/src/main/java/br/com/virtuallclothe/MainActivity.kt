@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import br.com.virtuallclothe.databinding.ActivityMainBinding
 import br.com.virtuallclothe.fragments.HomeFragment
 import br.com.virtuallclothe.fragments.ShoppingCartFragment
+import br.com.virtuallclothe.models.Pedido
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,9 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val shoppingCartFragment = ShoppingCartFragment()
-        val homeFragment = HomeFragment()
+        val shoppingCartFragment = ShoppingCartFragment(Pedido(0, 0.0, emptyList()))
+        val homeFragment = HomeFragment(Pedido(0, 0.0, emptyList()))
         makeCurrentFragment(homeFragment)
 
         binding.topNavigation.setOnNavigationItemSelectedListener {

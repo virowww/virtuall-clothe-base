@@ -11,20 +11,10 @@
         <LinearLayout
             android:id="@+id/buttons_layout"
             android:layout_width="match_parent"
-            android:layout_height="190dp"
+            android:layout_height="95dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="0dp"
             android:orientation="vertical">
-
-            <Button
-                android:id="@+id/adicionar_produto"
-                android:layout_width="match_parent"
-                android:layout_height="95dp"
-                android:backgroundTint="@color/grey"
-                android:fontFamily="@font/hind_siliguri_medium"
-                android:text="@string/adicionar_produto_txt"
-                android:textAllCaps="false"
-                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/comprar"

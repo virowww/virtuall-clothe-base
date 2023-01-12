@@ -7,36 +7,28 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.virtuallclothe.adapter.OrderItemListAdapter
+import br.com.virtuallclothe.adapter.ProductListAdapter
 import br.com.virtuallclothe.databinding.FragmentShoppingCartBinding
 import br.com.virtuallclothe.models.Pedido
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import br.com.virtuallclothe.models.Produto
+import br.com.virtuallclothe.repository.ProdutoRepository
 
 /**
  * A simple [Fragment] subclass.
  * Use the [ShoppingCartFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ShoppingCartFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+class ShoppingCartFragment(order: Pedido) : Fragment() {
     private var _binding: FragmentShoppingCartBinding? = null
     private val binding get() = _binding!!
+    private val instanceOrder = order
 
     var orderItemAdapter: OrderItemListAdapter? = null
     var linearLayoutManager: LinearLayoutManager? = null
-    lateinit var pedido: Pedido
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -51,12 +43,12 @@ class ShoppingCartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        initRecyclerView()
+        iniciarRecyclerView()
     }
 
-    private fun initRecyclerView() {
+    private fun iniciarRecyclerView() {
 
-        orderItemAdapter = OrderItemListAdapter(pedido, requireContext())
+        orderItemAdapter = OrderItemListAdapter(instanceOrder, requireContext())
         linearLayoutManager = LinearLayoutManager(requireContext())
 
         binding.orderItemList.layoutManager = linearLayoutManager
@@ -74,11 +66,9 @@ class ShoppingCartFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ShoppingCartFragment().apply {
+        fun newInstance(pedido: Pedido) =
+            ShoppingCartFragment(pedido).apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
                 }
             }
     }

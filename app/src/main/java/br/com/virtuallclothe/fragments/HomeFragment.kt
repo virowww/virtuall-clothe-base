@@ -10,27 +10,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.virtuallclothe.R
 import br.com.virtuallclothe.adapter.ProductListAdapter
 import br.com.virtuallclothe.databinding.FragmentHomeBinding
+import br.com.virtuallclothe.models.Pedido
 import br.com.virtuallclothe.models.Produto
+import br.com.virtuallclothe.repository.PedidoRepository
 import br.com.virtuallclothe.repository.ProdutoRepository
 import br.com.virtuallclothe.utils.toByteArray
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+class HomeFragment(order: Pedido) : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+//    private val instanceOrder = if (order != null) order else Pedido(0, 0.0, emptyList())
+    private val instanceOrder = order
 
     var produtoAdapter: ProductListAdapter? = null
     var linearLayoutManager: LinearLayoutManager? = null
@@ -38,8 +33,6 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -58,7 +51,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun iniciarRecyclerView() {
-        produtoAdapter = ProductListAdapter(getProducts(), requireContext())
+        produtoAdapter = ProductListAdapter(getProducts(), instanceOrder, requireContext())
         linearLayoutManager = LinearLayoutManager(requireContext())
 
         binding.productList.layoutManager = linearLayoutManager
@@ -75,21 +68,30 @@ class HomeFragment : Fragment() {
 
     private fun saveProducts(): List<Produto>{
         val repo = ProdutoRepository (requireContext())
+        val pedidoRepo = PedidoRepository (requireContext())
+        val pList = arrayListOf<Produto>()
 
         val icon = BitmapFactory.decodeResource(resources, R.drawable.camiseta_preta)
         repo.salvarProduto(Produto(1, "Camiseta Preta", 49.99, "", icon.toByteArray()))
+        pList.add(Produto(1, "Camiseta Preta", 49.99,"", byteArrayOf()))
 
         val icon2 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_branca)
         repo.salvarProduto(Produto(2, "Camiseta Branca", 35.99, "", icon2.toByteArray()))
+        pList.add(Produto(2, "Camiseta Branca", 35.99, "", byteArrayOf()))
 
         val icon3 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_vermelha)
         repo.salvarProduto(Produto(3, "Camiseta Vermelha", 29.99, "", icon3.toByteArray()))
+        pList.add(Produto(3, "Camiseta Vermelha", 29.99, "", byteArrayOf()))
 
         val icon4 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_roxo)
         repo.salvarProduto(Produto(4, "Camiseta Roxa", 35.99, "", icon4.toByteArray()))
+        pList.add(Produto(4, "Camiseta Roxa", 35.99, "", byteArrayOf()))
 
         val icon5 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_verde)
         repo.salvarProduto(Produto(5, "Camiseta Verde", 29.99, "", icon5.toByteArray()))
+        pList.add(Produto(5, "Camiseta Verde", 29.99, "", byteArrayOf()))
+
+        pedidoRepo.salvarPedido(Pedido(1, 172.00, repo.listarProdutos()))
 
         return repo.listarProdutos()
     }
@@ -104,17 +106,13 @@ class HomeFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
          * @return A new instance of fragment HomeFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
+        fun newInstance(order: Pedido) =
+            HomeFragment(order).apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
                 }
             }
     }

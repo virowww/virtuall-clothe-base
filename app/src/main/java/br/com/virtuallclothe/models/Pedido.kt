@@ -11,13 +11,14 @@ class Pedido(id: Int, total: Double, productList: List<Produto>) : java.io.Seria
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int = id
+    var id: Int? = id
 
     @ColumnInfo(name = "nome")
-    var total: Double = total
+    var total: Double? = total
 
     @ColumnInfo(name = "productList")
-    var productList: List<Produto> = productList
+    var productList: List<Produto>? = productList
+
 }
 
 class PedidoConverter {
