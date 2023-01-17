@@ -1,10 +1,12 @@
 package br.com.virtuallclothe.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -28,11 +30,12 @@ class OrderItemListAdapter(order: Pedido, private var ctx: Context) :
         return PedidoViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: PedidoViewHolder, position: Int) {
         val orderItem = order.productList!![position]
 
         holder.name.text = orderItem.nome
-        holder.price.text = "R$ " + orderItem.valor.toString()
+        holder.price.text = "R$ " + (orderItem.valor * orderItem.qtd).toString()
         holder.image.setImageBitmap(orderItem.imagem!!.toBitmap())
         holder.qtd.text = orderItem.qtd.toString()
 
@@ -42,6 +45,24 @@ class OrderItemListAdapter(order: Pedido, private var ctx: Context) :
             holder.name.setTextColor(Color.WHITE)
         } else {
             holder.linearLayoutItem.setBackgroundColor(Color.WHITE)
+        }
+
+        holder.addButton.setOnClickListener{
+            orderItem.qtd = orderItem.qtd + 1
+            holder.qtd.text = orderItem.qtd.toString()
+
+            orderItem.subTotal = orderItem.valor * orderItem.qtd
+            holder.price.text = "R$ " + orderItem.subTotal.toString()
+        }
+
+        holder.subButton.setOnClickListener{
+            if(holder.qtd.text.toString().toInt() > 0){
+                orderItem.qtd = orderItem.qtd - 1
+                holder.qtd.text = orderItem.qtd.toString()
+
+                orderItem.subTotal = orderItem.valor * orderItem.qtd
+                holder.price.text = "R$ " + orderItem.subTotal.toString()
+            }
         }
     }
 
@@ -55,5 +76,7 @@ class OrderItemListAdapter(order: Pedido, private var ctx: Context) :
         var image: ImageView = view.findViewById(R.id.product_image)
         var qtd: TextView = view.findViewById(R.id.product_quantity)
         var linearLayoutItem: LinearLayout = view.findViewById(R.id.linear_layout_order_item)
+        var addButton: ImageButton = view.findViewById(R.id.add)
+        var subButton: ImageButton = view.findViewById(R.id.sub)
     }
 }

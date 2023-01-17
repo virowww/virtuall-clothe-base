@@ -25,6 +25,9 @@ class Produto(id: Int, nome: String, valor: Double, tamanho: String, imagem: Byt
     var imagem: ByteArray? = imagem
 
     @Transient
+    var subTotal: Double = 0.0
+
+    @Transient
     var qtd: Int = 0
 
 }
