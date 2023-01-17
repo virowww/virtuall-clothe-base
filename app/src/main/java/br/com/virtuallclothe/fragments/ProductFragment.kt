@@ -12,17 +12,30 @@ import br.com.virtuallclothe.models.Pedido
 import br.com.virtuallclothe.models.Produto
 import br.com.virtuallclothe.utils.toBitmap
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProductFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ProductFragment(product: Produto, order: Pedido) : Fragment() {
-    // TODO: Rename and change types of parameters
+class ProductFragment() : Fragment() {
+
+    companion object {
+        const val ARG_ORDER = "order"
+        const val ARG_PRODUCT = "product"
+
+        fun newInstance(product: Produto, order: Pedido): ProductFragment {
+            val fragment = ProductFragment()
+
+            val bundle = Bundle().apply {
+                putSerializable(ARG_ORDER, order)
+                putSerializable(ARG_PRODUCT, product)
+            }
+
+            fragment.arguments = bundle
+
+            return fragment
+        }
+    }
+
     private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
-    private val instanceProduct = product
-    private val instanceOrder = order
+    private lateinit var instanceProduct: Produto
+    private lateinit var instanceOrder: Pedido
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +45,8 @@ class ProductFragment(product: Produto, order: Pedido) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        instanceOrder = (arguments?.getSerializable(ARG_ORDER) ?: Pedido(0,0.0, emptyList())) as Pedido
+        instanceProduct = (arguments?.getSerializable(ARG_PRODUCT) ?: Produto(0, "", 0.0, "", byteArrayOf())) as Produto
         _binding = FragmentProductBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,26 +57,13 @@ class ProductFragment(product: Produto, order: Pedido) : Fragment() {
         binding.textPrice.text = "R$ " + instanceProduct.valor.toString()
         binding.textName.text = instanceProduct.nome
 
-        binding.comprar.setOnClickListener{
+        binding.comprar.setOnClickListener {
             instanceProduct.qtd += 1
             instanceOrder.productList = instanceOrder.productList?.plus(instanceProduct)
             (requireContext() as FragmentActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.fl_wrapper, ShoppingCartFragment(instanceOrder))
+                .replace(R.id.fl_wrapper, ShoppingCartFragment.newInstance(instanceOrder))
                 .commit()
         }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment ProductFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(product: Produto, order: Pedido) =
-            ProductFragment(product, order).apply {
-            }
-    }
 }

@@ -7,21 +7,30 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.virtuallclothe.adapter.OrderItemListAdapter
-import br.com.virtuallclothe.adapter.ProductListAdapter
 import br.com.virtuallclothe.databinding.FragmentShoppingCartBinding
 import br.com.virtuallclothe.models.Pedido
-import br.com.virtuallclothe.models.Produto
-import br.com.virtuallclothe.repository.ProdutoRepository
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ShoppingCartFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ShoppingCartFragment(order: Pedido) : Fragment() {
+class ShoppingCartFragment : Fragment() {
+
+    companion object {
+        const val ARG_ORDER = "order"
+
+        fun newInstance(order: Pedido): ShoppingCartFragment {
+            val fragment = ShoppingCartFragment()
+
+            val bundle = Bundle().apply {
+                putSerializable(ARG_ORDER, order)
+            }
+
+            fragment.arguments = bundle
+
+            return fragment
+        }
+    }
+
     private var _binding: FragmentShoppingCartBinding? = null
     private val binding get() = _binding!!
-    private val instanceOrder = order
+    private lateinit var instanceOrder: Pedido
 
     var orderItemAdapter: OrderItemListAdapter? = null
     var linearLayoutManager: LinearLayoutManager? = null
@@ -32,11 +41,11 @@ class ShoppingCartFragment(order: Pedido) : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        instanceOrder = if (arguments?.getSerializable(ProductFragment.ARG_ORDER) as Pedido == null) Pedido(0, 0.0, emptyList()) else arguments?.getSerializable(ProductFragment.ARG_ORDER) as Pedido
         _binding = FragmentShoppingCartBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -55,21 +64,4 @@ class ShoppingCartFragment(order: Pedido) : Fragment() {
         binding.orderItemList.adapter = orderItemAdapter
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ShoppingCartFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(pedido: Pedido) =
-            ShoppingCartFragment(pedido).apply {
-                arguments = Bundle().apply {
-                }
-            }
-    }
 }

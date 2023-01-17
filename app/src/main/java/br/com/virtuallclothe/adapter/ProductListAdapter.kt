@@ -40,7 +40,7 @@ class ProductListAdapter(productList: List<Produto>, order: Pedido, private var 
         holder.image.setImageBitmap(product.imagem!!.toBitmap())
         holder.linearLayoutItem.setOnClickListener {
             (ctx as FragmentActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.fl_wrapper, ProductFragment(product, instanceOrder))
+                .replace(R.id.fl_wrapper, ProductFragment.newInstance(product, instanceOrder))
                 .commit()
         }
 

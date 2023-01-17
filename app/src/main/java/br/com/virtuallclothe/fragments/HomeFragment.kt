@@ -16,16 +16,10 @@ import br.com.virtuallclothe.repository.PedidoRepository
 import br.com.virtuallclothe.repository.ProdutoRepository
 import br.com.virtuallclothe.utils.toByteArray
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class HomeFragment(order: Pedido) : Fragment() {
+class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-//    private val instanceOrder = if (order != null) order else Pedido(0, 0.0, emptyList())
-    private val instanceOrder = order
+    private lateinit var instanceOrder: Pedido
 
     var produtoAdapter: ProductListAdapter? = null
     var linearLayoutManager: LinearLayoutManager? = null
@@ -40,8 +34,8 @@ class HomeFragment(order: Pedido) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        instanceOrder = if (arguments?.getSerializable(ARG_ORDER) as Pedido == null) Pedido(0, 0.0, emptyList()) else arguments?.getSerializable(ARG_ORDER) as Pedido
         return binding.root
     }
 
@@ -102,18 +96,18 @@ class HomeFragment(order: Pedido) : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(order: Pedido) =
-            HomeFragment(order).apply {
-                arguments = Bundle().apply {
-                }
+        const val ARG_ORDER = "order"
+
+        fun newInstance(order: Pedido): HomeFragment {
+            val fragment = HomeFragment()
+
+            val bundle = Bundle().apply {
+                putSerializable(ARG_ORDER, order)
             }
+
+            fragment.arguments = bundle
+
+            return fragment
+        }
     }
 }

@@ -17,7 +17,7 @@
                 <LinearLayout
                     android:id="@+id/recycler_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="505dp"
                     android:orientation="vertical">
 
 
@@ -84,7 +84,6 @@
                                 android:textSize="16sp" />
                         </LinearLayout>
 
-
                     </LinearLayout>
 
                     <Button
@@ -95,11 +94,13 @@
                         android:fontFamily="@font/hind_siliguri_medium"
                         android:text="@string/comprar_txt"
                         android:textAllCaps="false"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:layout_marginTop="-10dp"/>
 
                 </LinearLayout>
 
             </LinearLayout>
+
         </RelativeLayout>
 
 </layout>
