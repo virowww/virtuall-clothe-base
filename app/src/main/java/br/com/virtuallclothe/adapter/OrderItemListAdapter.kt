@@ -10,11 +10,12 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.com.virtuallclothe.R
 import br.com.virtuallclothe.models.Pedido
 import br.com.virtuallclothe.utils.toBitmap
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 class OrderItemListAdapter(order: Pedido, private var ctx: Context) :
     RecyclerView.Adapter<OrderItemListAdapter.PedidoViewHolder>() {
@@ -30,38 +31,30 @@ class OrderItemListAdapter(order: Pedido, private var ctx: Context) :
         return PedidoViewHolder(view)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onBindViewHolder(holder: PedidoViewHolder, position: Int) {
         val orderItem = order.productList!![position]
 
         holder.name.text = orderItem.nome
-        holder.price.text = "R$ " + (orderItem.valor * orderItem.qtd).toString()
+
+        orderItem.subTotal = orderItem.valor * orderItem.qtd
+        holder.price.text = "R$ " + BigDecimal(orderItem.subTotal).setScale(2, RoundingMode.HALF_UP)
+
         holder.image.setImageBitmap(orderItem.imagem!!.toBitmap())
         holder.qtd.text = orderItem.qtd.toString()
-
-        if (position % 2 == 0) {
-            holder.linearLayoutItem.setBackgroundColor(ContextCompat.getColor(ctx, R.color.grey))
-            holder.price.setTextColor(Color.WHITE)
-            holder.name.setTextColor(Color.WHITE)
-        } else {
-            holder.linearLayoutItem.setBackgroundColor(Color.WHITE)
-        }
+        holder.linearLayoutItem.setBackgroundColor(Color.WHITE)
 
         holder.addButton.setOnClickListener{
             orderItem.qtd = orderItem.qtd + 1
             holder.qtd.text = orderItem.qtd.toString()
-
-            orderItem.subTotal = orderItem.valor * orderItem.qtd
-            holder.price.text = "R$ " + orderItem.subTotal.toString()
+            notifyDataSetChanged()
         }
 
         holder.subButton.setOnClickListener{
             if(holder.qtd.text.toString().toInt() > 0){
                 orderItem.qtd = orderItem.qtd - 1
                 holder.qtd.text = orderItem.qtd.toString()
-
-                orderItem.subTotal = orderItem.valor * orderItem.qtd
-                holder.price.text = "R$ " + orderItem.subTotal.toString()
+                notifyDataSetChanged()
             }
         }
     }
