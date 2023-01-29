@@ -6,7 +6,7 @@ import br.com.virtuallclothe.models.Produto
 @Dao
 interface ProdutoDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(produto: Produto): Long
 
     @Update
@@ -20,4 +20,7 @@ interface ProdutoDAO {
 
     @Query("SELECT * FROM produto WHERE id = :id")
     fun getProdutoById(id: Int): Produto
+
+    @Query("SELECT * FROM produto WHERE nome LIKE '%' || :nome || '%'")
+    fun listarProdutosPorNome(nome: String): List<Produto>
 }

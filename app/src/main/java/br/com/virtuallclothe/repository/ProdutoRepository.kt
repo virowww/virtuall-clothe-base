@@ -25,4 +25,8 @@ class ProdutoRepository(context: Context) {
     fun deletarProduto(produto: Produto) {
         produtoDb.delete(produto)
     }
+
+    fun listarProdutosPorNome(nome: String): List<Produto> {
+        return produtoDb.listarProdutosPorNome(nome)
+    }
 }

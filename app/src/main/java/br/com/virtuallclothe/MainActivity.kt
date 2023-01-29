@@ -22,25 +22,25 @@ class MainActivity : AppCompatActivity() {
         val shoppingCartFragment = ShoppingCartFragment.newInstance(order)
         val homeFragment = HomeFragment.newInstance(order)
 
-        makeCurrentFragment(homeFragment, order)
+        makeCurrentFragment(homeFragment)
 
         binding.topNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.app_title -> makeCurrentFragment(homeFragment, order)
-                R.id.shopping_cart -> makeCurrentFragment(shoppingCartFragment, order)
+                R.id.app_title -> makeCurrentFragment(homeFragment)
+                R.id.shopping_cart -> makeCurrentFragment(shoppingCartFragment)
             }
             true
         }
     }
 
-    private fun makeCurrentFragment(fragment: Fragment, order: Pedido) =
+    private fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
 
             if (fragment is HomeFragment) {
-                replace(R.id.fl_wrapper, HomeFragment.newInstance(order))
+                replace(R.id.fl_wrapper, HomeFragment.newInstance(getOrder()))
                 commit()
             } else if (fragment is ShoppingCartFragment) {
-                replace(R.id.fl_wrapper, ShoppingCartFragment.newInstance(order))
+                replace(R.id.fl_wrapper, ShoppingCartFragment.newInstance(getOrder()))
                 commit()
             }
         }
@@ -50,4 +50,3 @@ class MainActivity : AppCompatActivity() {
         return if (order != null) order as Pedido else Pedido(0, 0.0, emptyList())
     }
 }
-

@@ -12,4 +12,5 @@
     <string name="search_buttom">Pesquisar</string>
     <string name="resumo_pedido">Resumo do Pedido</string>
     <string name="valor_total">Valor Total:</string>
+    <string name="finalizar_compra_txt">Finalizar Compra</string>
 </resources>

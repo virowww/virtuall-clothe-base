@@ -6,7 +6,7 @@ import br.com.virtuallclothe.models.Pedido
 @Dao
 interface PedidoDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(pedido: Pedido): Long
 
     @Update

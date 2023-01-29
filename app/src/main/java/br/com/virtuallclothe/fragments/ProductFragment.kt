@@ -1,5 +1,6 @@
 package br.com.virtuallclothe.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,20 +38,17 @@ class ProductFragment() : Fragment() {
     private lateinit var instanceProduct: Produto
     private lateinit var instanceOrder: Pedido
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         instanceOrder = (arguments?.getSerializable(ARG_ORDER) ?: Pedido(0,0.0, emptyList())) as Pedido
         instanceProduct = (arguments?.getSerializable(ARG_PRODUCT) ?: Produto(0, "", 0.0, "", byteArrayOf())) as Produto
         _binding = FragmentProductBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.imageView.setImageBitmap(instanceProduct.imagem?.toBitmap())

@@ -54,6 +54,11 @@ class OrderItemListAdapter(order: Pedido, private var ctx: Context) :
             if(holder.qtd.text.toString().toInt() > 0){
                 orderItem.qtd = orderItem.qtd - 1
                 holder.qtd.text = orderItem.qtd.toString()
+                if(orderItem.qtd < 1){
+                    val mutableList = order.productList!!.toMutableList()
+                    mutableList.removeAt(position)
+                    order.productList = mutableList
+                }
                 notifyDataSetChanged()
             }
         }

@@ -12,7 +12,6 @@ import br.com.virtuallclothe.adapter.ProductListAdapter
 import br.com.virtuallclothe.databinding.FragmentHomeBinding
 import br.com.virtuallclothe.models.Pedido
 import br.com.virtuallclothe.models.Produto
-import br.com.virtuallclothe.repository.PedidoRepository
 import br.com.virtuallclothe.repository.ProdutoRepository
 import br.com.virtuallclothe.utils.toByteArray
 
@@ -35,7 +34,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        instanceOrder = if (arguments?.getSerializable(ARG_ORDER) as Pedido == null) Pedido(0, 0.0, emptyList()) else arguments?.getSerializable(ARG_ORDER) as Pedido
+        instanceOrder = arguments?.getSerializable(ARG_ORDER) as Pedido
         return binding.root
     }
 
@@ -50,6 +49,10 @@ class HomeFragment : Fragment() {
 
         binding.productList.layoutManager = linearLayoutManager
         binding.productList.adapter = produtoAdapter
+        binding.searchButton.setOnClickListener{
+            produtoAdapter = ProductListAdapter(getProductsByName(binding.searchText.text.toString()), instanceOrder, requireContext())
+            binding.productList.adapter = produtoAdapter
+        }
     }
 
     private fun getProducts(): List<Produto>{
@@ -60,32 +63,31 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun getProductsByName(productName: String): List<Produto> {
+        if (productName.isBlank()) {
+            return getProducts()
+        }
+        val repo = ProdutoRepository(requireContext())
+        return repo.listarProdutosPorNome(productName)
+    }
+
     private fun saveProducts(): List<Produto>{
         val repo = ProdutoRepository (requireContext())
-        val pedidoRepo = PedidoRepository (requireContext())
-        val pList = arrayListOf<Produto>()
 
         val icon = BitmapFactory.decodeResource(resources, R.drawable.camiseta_preta)
         repo.salvarProduto(Produto(1, "Camiseta Preta", 49.99, "", icon.toByteArray()))
-        pList.add(Produto(1, "Camiseta Preta", 49.99,"", byteArrayOf()))
 
         val icon2 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_branca)
         repo.salvarProduto(Produto(2, "Camiseta Branca", 35.99, "", icon2.toByteArray()))
-        pList.add(Produto(2, "Camiseta Branca", 35.99, "", byteArrayOf()))
 
         val icon3 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_vermelha)
         repo.salvarProduto(Produto(3, "Camiseta Vermelha", 29.99, "", icon3.toByteArray()))
-        pList.add(Produto(3, "Camiseta Vermelha", 29.99, "", byteArrayOf()))
 
         val icon4 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_roxo)
         repo.salvarProduto(Produto(4, "Camiseta Roxa", 35.99, "", icon4.toByteArray()))
-        pList.add(Produto(4, "Camiseta Roxa", 35.99, "", byteArrayOf()))
 
         val icon5 = BitmapFactory.decodeResource(resources, R.drawable.camiseta_verde)
         repo.salvarProduto(Produto(5, "Camiseta Verde", 29.99, "", icon5.toByteArray()))
-        pList.add(Produto(5, "Camiseta Verde", 29.99, "", byteArrayOf()))
-
-        pedidoRepo.salvarPedido(Pedido(1, 172.00, repo.listarProdutos()))
 
         return repo.listarProdutos()
     }
