@@ -15,14 +15,15 @@ import br.com.virtuallclothe.R
 import br.com.virtuallclothe.fragments.ProductFragment
 import br.com.virtuallclothe.models.Pedido
 import br.com.virtuallclothe.models.Produto
+import br.com.virtuallclothe.utils.returnStringPrice
 import br.com.virtuallclothe.utils.toBitmap
 
 
 class ProductListAdapter(productList: List<Produto>, order: Pedido, private var ctx: Context):
     RecyclerView.Adapter<ProductListAdapter.ProdutoViewHolder>() {
 
-    internal var productList: List<Produto> = ArrayList()
-    internal var instanceOrder: Pedido = order
+    private var productList: List<Produto> = ArrayList()
+    private var instanceOrder: Pedido = order
     init {
         this.productList = productList
     }
@@ -36,7 +37,7 @@ class ProductListAdapter(productList: List<Produto>, order: Pedido, private var 
         val product = productList[position]
 
         holder.name.text = product.nome
-        holder.price.text = "R$ " + product.valor.toString()
+        holder.price.text = returnStringPrice(product.valor)
         holder.image.setImageBitmap(product.imagem!!.toBitmap())
         holder.linearLayoutItem.setOnClickListener {
             (ctx as FragmentActivity).supportFragmentManager.beginTransaction()

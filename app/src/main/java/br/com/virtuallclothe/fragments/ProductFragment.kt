@@ -11,6 +11,7 @@ import br.com.virtuallclothe.R
 import br.com.virtuallclothe.databinding.FragmentProductBinding
 import br.com.virtuallclothe.models.Pedido
 import br.com.virtuallclothe.models.Produto
+import br.com.virtuallclothe.utils.returnStringPrice
 import br.com.virtuallclothe.utils.toBitmap
 
 class ProductFragment() : Fragment() {
@@ -52,13 +53,14 @@ class ProductFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.imageView.setImageBitmap(instanceProduct.imagem?.toBitmap())
-        binding.textPrice.text = "R$ " + instanceProduct.valor.toString()
+        binding.textPrice.text = returnStringPrice(instanceProduct.valor)
         binding.textName.text = instanceProduct.nome
 
         binding.comprar.setOnClickListener {
             instanceProduct.qtd += 1
             instanceOrder.productList = instanceOrder.productList?.plus(instanceProduct)
-            (requireContext() as FragmentActivity).supportFragmentManager.beginTransaction()
+
+            (context as FragmentActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.fl_wrapper, ShoppingCartFragment.newInstance(instanceOrder))
                 .commit()
         }

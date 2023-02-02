@@ -8,6 +8,8 @@ import br.com.virtuallclothe.fragments.HomeFragment
 import br.com.virtuallclothe.fragments.ShoppingCartFragment
 import br.com.virtuallclothe.models.Pedido
 
+private const val ARG_ORDER = "order"
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun getOrder() : Pedido {
-        val order = intent.getSerializableExtra("order")
+        val order = intent.getSerializableExtra(ARG_ORDER)
         return if (order != null) order as Pedido else Pedido(0, 0.0, emptyList())
     }
 }

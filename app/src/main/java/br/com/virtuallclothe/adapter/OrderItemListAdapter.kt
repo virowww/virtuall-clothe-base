@@ -13,12 +13,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.virtuallclothe.R
 import br.com.virtuallclothe.models.Pedido
+import br.com.virtuallclothe.utils.returnStringPrice
 import br.com.virtuallclothe.utils.toBitmap
-import java.math.BigDecimal
-import java.math.RoundingMode
 
-class OrderItemListAdapter(order: Pedido, private var ctx: Context) :
-    RecyclerView.Adapter<OrderItemListAdapter.PedidoViewHolder>() {
+class OrderItemListAdapter(order: Pedido, private var ctx: Context): RecyclerView.Adapter<OrderItemListAdapter.PedidoViewHolder>() {
 
     private val order: Pedido
 
@@ -38,7 +36,7 @@ class OrderItemListAdapter(order: Pedido, private var ctx: Context) :
         holder.name.text = orderItem.nome
 
         orderItem.subTotal = orderItem.valor * orderItem.qtd
-        holder.price.text = "R$ " + BigDecimal(orderItem.subTotal).setScale(2, RoundingMode.HALF_UP)
+        holder.price.text = returnStringPrice(orderItem.subTotal)
 
         holder.image.setImageBitmap(orderItem.imagem!!.toBitmap())
         holder.qtd.text = orderItem.qtd.toString()

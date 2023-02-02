@@ -15,8 +15,7 @@ import br.com.virtuallclothe.adapter.OrderItemListAdapter
 import br.com.virtuallclothe.databinding.FragmentShoppingCartBinding
 import br.com.virtuallclothe.models.Pedido
 import br.com.virtuallclothe.repository.PedidoRepository
-import java.math.BigDecimal
-import java.math.RoundingMode
+import br.com.virtuallclothe.utils.getOrderPrice
 
 class ShoppingCartFragment : Fragment() {
 
@@ -53,31 +52,31 @@ class ShoppingCartFragment : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        instanceOrder = arguments?.getSerializable(ProductFragment.ARG_ORDER) as Pedido
+        instanceOrder = arguments?.getSerializable(ARG_ORDER) as Pedido
         _binding = FragmentShoppingCartBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        iniciarRecyclerView()
+        loadRecyclerView()
     }
 
-    private fun iniciarRecyclerView() {
-
+    private fun loadRecyclerView() {
         orderItemAdapter = OrderItemListAdapter(instanceOrder, requireContext())
         orderItemAdapter!!.registerAdapterDataObserver(object: AdapterDataObserver(){
             override fun onChanged() {
                 super.onChanged()
-                binding.orderPriceText.text = getOrderPrice()
+                activity?.intent?.putExtra(ARG_ORDER, instanceOrder)
+                binding.orderPriceText.text = instanceOrder.productList?.let { getOrderPrice(it) }
             }
         })
-        linearLayoutManager = LinearLayoutManager(requireContext())
+        linearLayoutManager = LinearLayoutManager(context)
 
         binding.orderItemList.layoutManager = linearLayoutManager
         binding.orderItemList.adapter = orderItemAdapter
         binding.orderItemList.addItemDecoration(DividerItemDecoration(context, linearLayoutManager!!.orientation))
-        binding.orderPriceText.text = getOrderPrice()
+        binding.orderPriceText.text = instanceOrder.productList?.let { getOrderPrice(it) }
         binding.comprar.setOnClickListener{
             showConfirmPurchaseDialog()
         }
@@ -100,27 +99,17 @@ class ShoppingCartFragment : Fragment() {
         alertDialog.apply {
             setIcon(R.drawable.ic_soccer)
             setTitle("Pedido feito com sucesso.")
-            setPositiveButton("Ok"){ _, _ -> callHomeFragment()}
+            setPositiveButton("Ok"){ _, _ -> resetAndCallHomeFragment()}
         }.create().show()
     }
 
-    private fun callHomeFragment(){
+    private fun resetAndCallHomeFragment(){
         instanceOrder = Pedido(0, 0.0, emptyList())
-        arguments?.putSerializable(ARG_ORDER, instanceOrder)
-        iniciarRecyclerView()
-        (requireContext() as FragmentActivity).supportFragmentManager.beginTransaction()
+        activity?.intent?.putExtra(ARG_ORDER, instanceOrder)
+        loadRecyclerView()
+        (context as FragmentActivity).supportFragmentManager.beginTransaction()
             .replace(R.id.fl_wrapper, HomeFragment.newInstance(instanceOrder))
             .commit()
-    }
-
-    private fun getOrderPrice(): String{
-        var price = 0.0
-
-        instanceOrder.productList?.forEach{
-            price += it.valor * it.qtd
-        }
-
-        return "R$ " + BigDecimal(price).setScale(2, RoundingMode.HALF_UP)
     }
 
 }
